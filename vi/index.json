@@ -1,0 +1,64 @@
+[
+{
+	"uri": "/vi/1-infrastructure/",
+	"title": "Thiết lập Hạ tầng",
+	"tags": [],
+	"description": "",
+	"content": "Tổng quan Ở phần này, bạn sẽ thiết lập hạ tầng mạng với CloudFormation Template cho bài lab với kiến trúc sau:\nNhư vậy, tài nguyên được triển khai bao gồm:\n First EC2 Host ở VPC1 và Third EC2 Host ở VPC3 có thể được kết nối thông qua Internet Second EC2 Host ở VPC2 và Fourth EC2 Host ở VPC4 không thể được kết nối thông qua Internet  Thiết lập Hạ tầng  Tải Template tên tgw-lab.yaml trong link này hoặc tải file dưới đây:    tgw-lab   tgw-lab.yaml (7 KB)    Truy cập đến CloudFormation Management Conole bằng cách gõ CloudFormation vào thanh tìm kiếm.  Ở thanh bên trái, chọn Stacks. Sau đó, nhấn chọn Create Stack và With new resources (standard).  Chọn Upload a template file, chọn tgw-lab.yaml từ source mà chúng ta down về ở trên, và chọn Next.  Trong trang Specify stack details, nhập tên cho stack (VD: Lab-Stack), chọn SSH Key của bạn, và sau đó chọn Next:  Trong trang Configure stack options, giữ nguyên mặc định và chọn Next.   Trong trang Review, kiểm tra thông tin và chọn Create stack.\n  Sau khi CloudFormation tạo hoàn thành. Đi đến folder bạn chứa SSH Key pair và sau đó chạy command sau để sao chép Key Pair đến First EC2 Host và Third EC2 Host cho bước tiếp theo.\nscp -i \u0026lt;key name\u0026gt; \u0026lt;key name\u0026gt; ec2-user@\u0026lt;public ip\u0026gt;:   Lệnh scp sẽ có sẵn ở trên hệ điều hành Linux và Mac. Nếu bạn sử dụng hệ điều hành Windows, hãy cài đặt PuTTY để có thể sử dụng lệnh và kết nối tới EC2 instance.\n "
+},
+{
+	"uri": "/vi/",
+	"title": "Thiết lập Transit Gateway",
+	"tags": [],
+	"description": "",
+	"content": "Thiết lập Transit Gateway Tổng quan Ở bài lab này, bạn sẽ triển khai kiến trúc sau để kết nối bốn VPC với nhau qua AWS Transit Gateway:\nỞ bài lab Thiêt lập VPC Peering, bạn đã được thực hành thiết lập một Peering Connection giữa hai VPC. Bây giờ, hãy tưởng tượng bạn có tận bốn VPC muốn kết nối với nhau, vậy bạn cần bao nhiêu Peering Connection?\nĐáp án: Bạn cần tới tận 6 Peering Connection để kết nối 4 VPC với nhau. Hãy thử tưởng tượng bạn cần kết nối sáu, tám, hoặc thậm chí mười VPC với nhau. Từ đó, bạn nhận ra được rằng phương pháp kết nối Peering Connection không có khả năng mở rộng cao.\nAWS Transit Gateway (AWS TGW) Để giải quyết giới hạn của Peering Conenction, AWS Transite Gateway được dùng để kết nối các VPC và mạng on-premises thông qua một hub trung tâm. Điều này đơn giản hoá mạng và kết thúc các mối quan hệ định tuyến phức tạp. Nó hoạt động như một cloud router - mỗi kết nối mới chỉ thực hiện 1 lần.\nAWS Transit Gateway Attachment AWS Transit Gateway Attachment là một công cụ để gán các subnet của từng VPC cần kết nối với nhau vào một TGW đã được khởi tạo. Transit Gateway Attachment hoạt động dựa trên quy mô của Availability Zone (AZ-level). Trong VPC, khi một subnet ở một AZ có Transit Gateway Attachment với một TGW, các subnet khác trong cùng AZ đều có thể kết nối tới TGW đó.\nBài lab này sẽ dẫn đến các khoản phí cho account AWS của bạn. Instance sẽ chạy tất cả đều là t3.nano. Ngoài ra, bài lab còn có những phí liên quan đến Transit Gateway. Do đó, bạn sẽ phải xoá lab template ở cuối lab để tránh những chi phí phát sinh.\n Nội dung  1. Thiết lập Hạ tầng 2. Tạo Transit Gateway 3. Tạo Transit Gateway Attachments 4. Tạo Transit Gateway Route Tables 5. Thêm Transit Gateway Routes vào VPC Route Tables  "
+},
+{
+	"uri": "/vi/2-create-transitgw/",
+	"title": "Tạo Transit Gateway",
+	"tags": [],
+	"description": "",
+	"content": "Tổng quan Trong phần này, bạn sẽ tạo một Transit Gateway trên AWS Cloud.\nNội dung:\n Tạo Transit Gateway  Tạo Transit Gateway  Mở VPC Management Console, chọn Transit Gateway ở thanh bên trái, và chọn Create Transit Gateway.   Ở trang Create Transit Gateway, nhập những thông số sau:\n Name tag: lab-tgw Description: Transit Gateway Configure the Transit Gateway: bỏ chọn các cấu hình Default route table association và Default route table propagation. Chúng ta sẽ thực hiện thủ công những cấu hình đã bỏ chọn để hiểu hơn về cách hoạt động của Route Table ở phần sau.\n     Kiểm tra và chọn Create Transit Gateway.\n  Sẽ mất 1-2 phút để Transit Gateway trở nên sẵn sàng  "
+},
+{
+	"uri": "/vi/3-transitgw-attachment/",
+	"title": "Transit Gateway Attachments",
+	"tags": [],
+	"description": "",
+	"content": "Tổng quan Ở phần này, bạn sẽ cấu hình các Transit Gateway Attachments để gán các VPC vào Transit Gateway đã tạo.\nNội dung:\n Tạo Transit Gateway Attachments  Tạo Transit Gateway Attachments  Mở VPC Management Console, chọn Transit Gateway Attachments ở thanh bên trái, và chọn Create Transit Gateway Attachment.  Ở trang Create Transit Gateway Attachment, chọn các thông số sau và chọn Create attachment:  Transit Gateway ID: chọn ID của Transite Gateway được tạo. Attachment type: chọn VPC để định dạng đối tượng được gán là VPC Attachment name tag: nhập VPC tương úng với VPC ID (Ví dụ: VPC1) VPC ID: chọn First VPC, tức VPC1. Subnet ID: trong hạ tầng này, mỗi VPC chỉ chứa một subnet. Do đó, bạn chỉ có một lựa chọn là subnet ở một AZ nhất định.     Lặp lại bước 1-2 với từng VPC và chúng ta sẽ có được kiến trúc như hình ở phần Tổng quan. Lưu ý mỗi VPC chỉ có 1 subnet nhưng ở môi trường production bạn thường sẽ gắn tất cả các subnet vào Transit Gateway.\n  Bây giờ, bạn hãy kết nối SSH đến các instance ở VPC1 và VPC3. Thử ping các địa chỉ IP private của các instance khác. Điều này sẽ không được bởi vì việc gán các VPC vào Transit Gateway không tự tạo các các trúc liên kết routing trong trường hợp này bởi vì cấu hình Default route table association và Default route table propagation đã bị vô hiệu hoá ở phần tạo Transit Gateway trước.\n  *Hình trên thể hiện ping thất bại từ First EC2 Host đến Fourth EC2 Host.\n"
+},
+{
+	"uri": "/vi/4-transitgw-rtb/",
+	"title": "Tạo Route Table cho TGW",
+	"tags": [],
+	"description": "",
+	"content": "Tổng quan Ở phần này, bạn sẽ tạo Route Table cho Transit Gateway để Transit Gateway biết rằng những VPC attachment nào sẵn sàng gửi và đón nhận traffic được phân phối thông qua Transit Gateway.\nNội dung:\n Tạo Transit Gateway Route Tables  Tạo Transit Gateway Route Tables  Mở VPC Management Console, chọn Transit Gateway Route Tables ở thanh bên trái, và chọn Create Transit Gateway Route Table.  Nhập Name tag (VD:lab-TGW-RT), chọn transit gateway mà bạn đã tạo, và chọn Create Transit Gateway Route Table.  Sau khi Route table trở nên sẵn sàng, tick vào route table chúng ta mới tạo, chọn tab Associations, và nhấn Create association.  Lần lượt đính từng VPC. Quá trình association báo Transit Gateway biết route table của VPC nào sẽ gửi các data packet tới Transit Gateway.  Sau đó chuyển qua tab Propagations, nhấn Create propagation.  Lần lượt đính từng VPC. Quá trình propagation báo Transit Gateway biết route table của VPC nào sẽ nhận các data packet từ Transit Gateway.  "
+},
+{
+	"uri": "/vi/5-attach-rtb/",
+	"title": "Thêm Gateway vào Route Tables &amp; Kiểm tra kết quả",
+	"tags": [],
+	"description": "",
+	"content": "Tổng quan Ở phần này, bạn sẽ cấu hình route table ở từng VPC để route traffic tới các VPC còn lại thông qua Transit Gateway.\nNội dung:\n Thêm Transit Gateway Routes vào VPC Route Tables Kiểm tra kết quả  Thêm Transit Gateway Routes vào VPC Route Tables   Mở VPC Management Console, chọn Route Tables ở thanh bên trái. Chúng ta quy ước rằng:\n First VPC Main Route Table = Route Table của VPC1 Second VPC Main Route Table = Route Table của VPC2 Third VPC Main Route Table = Route Table của VPC3 Fourth VPC Main Route Table = Route Table của VPC4    Với Route Table của VPC1 và VPC3, chọn Edit routes để thêm route với thông số sau:\n Destination: 172.16.0.0/16 Target: chọn Transit Gateway bạn dã tạo.    Điều này cho VPC1 và VPC3 biết rằng tất cả packet cho bất kỳ mạng 172.16.x.x nào đều thông qua Transit Gateway.\n Tương tự với Route Table của VPC2 và VPC4, chọn Edit routes để thêm route với thông số sau:  Destination: 0.0.0.0/0 Target: chọn Transit Gateway bạn đã tạo    Điều này cho VPC2 và VPC4 biết rằng tất cả packet cho bất kỳ mạng nào khác ngoài mạng local đều thông qua Transit Gateway.\n Như vậy, bạn đã hoàn thành công tác cấu hình cho phép bốn VPC liên lạc với nhau thông qua Transit Gateway. Hãy cùng kiểm tra xem các EC2 instance từ VPC1 và VPC3 có thể kết nối tới các EC2 instance ở VPC2 và VPC4 không nhé!\nKiểm tra kết quả  Kết nối SSH đến EC2 instance ở VPC1 và xác thực bạn có thể ping www.amazon.com để xác thực kiểm tra kết nối internet  Ping đến IP của EC2 instance trong VPC2.  Sử dụng Key Pair bạn đã copy vào instance ở phần trước, kết nối SSH từ EC2 instance ở VPC1 tới EC2 instance ở VPC2 bằng các câu lệnh:  chmod 400 AP-SE-key.pem để ngăn không người dùng công cộng xem được Key Pair trong instance. Đây là điều kiện an ninh tiên quyết để sử dụng Key Pair. ssh -i \u0026quot;\u0026lt;YourKey.pem\u0026gt;\u0026quot; ec2-user@\u0026lt;YourEC2IP\u0026gt; để kết nối SSH tới EC2 instance từ Terminal    Lần lượt ping vào địa chỉ IP Private của EC2 instance ở VPC3 và VPC4  Chúc mừng!!! Các EC2 Instance ở các VPC của bạn đã có thể kết nối với nhau thông qua Transit Gateway.\n"
+},
+{
+	"uri": "/vi/6-cleanup/",
+	"title": "Dọn dẹp tài nguyên",
+	"tags": [],
+	"description": "",
+	"content": "Bạn sẽ dọn dẹp tài nguyên theo thứ tự sau:\n Xóa TGW Attachments  Truy cập vào VPC Management Console Ở thanh bên trái, chọn Transit Gateway Attachments. Lần lượt tick vào các Attachment liên quan tới bài, chọn Actions, và chọn Delete Trong prompt, chọn Delete. Đọi 1-2 để hoàn thành việc xóa các attachment   Xóa Transit Gateway  Truy cập vào VPC Management Console Ở thanh bên trái, chọn Transit Gateways. Tick vào các Attachment liên quan tới bài, chọn Actions, và chọn Delete Trong prompt, chọn Delete. Bạn phải đợi TGW Attachments được xóa hoàn toàn trước khi xóa TGW. Đọi 1-2 để hoàn thành việc xóa TGW.   Xóa CloudFormation Stack  Truy cập vào CloudFormation Management Console Ở thanh bên trái, chọn Stacks. Tick vào CloudFormation Stack liên quan tới bài lab và chọn Delete. Trong prompt, chọn Delete stack. Đọi vài phút cho tới khi CloudFormation xóa bỏ hết tài nguyên.    "
+},
+{
+	"uri": "/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
