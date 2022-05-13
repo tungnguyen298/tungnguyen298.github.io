@@ -12,21 +12,21 @@
     <title>Setup Transit Gateway :: AWS System Manager</title>
 
     
-    <link href="/css/nucleus.css?1652362573" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1652362573" rel="stylesheet">
-    <link href="/css/hybrid.css?1652362573" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1652362573" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1652362573" rel="stylesheet">
-    <link href="/css/auto-complete.css?1652362573" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1652362573" rel="stylesheet">
-    <link href="/css/theme.css?1652362573" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1652362573" rel="stylesheet">
+    <link href="/css/nucleus.css?1652450678" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1652450678" rel="stylesheet">
+    <link href="/css/hybrid.css?1652450678" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1652450678" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1652450678" rel="stylesheet">
+    <link href="/css/auto-complete.css?1652450678" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1652450678" rel="stylesheet">
+    <link href="/css/theme.css?1652450678" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1652450678" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1652362573" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1652450678" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1652362573"></script>
+    <script src="/js/jquery-3.3.1.min.js?1652450678"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1652362573"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1652362573"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1652450678"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1652450678"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1652362573"></script>
+<script type="text/javascript" src="/js/search.js?1652450678"></script>
 
     
   </div>
@@ -358,15 +358,15 @@
 </span>
 
  
-<h1 id="setup-transit-gateway">Setup Transit Gateway</h1>
+<h1 id="transit-gateway-setup">Transit Gateway Setup</h1>
 <h4 id="overview">Overview</h4>
 <p>In this part, you will set up the network infrastructure with CloudFormation Template for the lab with the following architecture: <strong>AWS Transit Gateway</strong>:</p>
 <p><img src="/images/transitgateway/Transit_Gateway.png?width=40pc" alt="Image"></p>
-<p>In previous labs <a href="https://000019.awsstudygroup.com/vi/">Thiêt lập VPC Peering</a>, we have configured <strong>Peering Connection</strong> between 2 VPC. Now, if we want to connect 4 VPCs together, How many peering connection will we need       ?</p>
+<p>In previous labs <a href="https://000019.awsstudygroup.com/vi/">Configure VPC Peering</a>, we have configured <strong>Peering Connection</strong> between 2 VPC. Now, if we want to connect 4 VPCs together, How many peering connection will we need       ?</p>
 <p><img src="/images/transitgateway/0-NoTGW.png?width=30pc" alt="Image"></p>
 <p><strong>Answer</strong>: You will need 6 Peering Conneection to connect 4 VPCs together. In case, you need to connect 6, 4 or 10 VPCs. you will see that Peering Connection is not highly scalable</p>
 <h4 id="aws-transit-gateway-aws-tgw">AWS Transit Gateway (AWS TGW)</h4>
-<p>To resolve limitation of Peering Connection, <strong>AWS Transite Gateway</strong> used to connect VPCs and on-premises networks through a central hub. This simplifies the network and ends complex routing. It works like a cloud router - each new connection is made only 1.</p>
+<p>To resolve limitation of Peering Connection, <strong>AWS Transit Gateway</strong> used to connect VPCs and on-premises networks through a central hub. This simplifies the network and ends complex routing. It works like a cloud router - each new connection is made only 1.</p>
 <h4 id="aws-transit-gateway-attachment">AWS Transit Gateway Attachment</h4>
 <p><strong>AWS Transit Gateway Attachment</strong> is a tool to assign the subnets of each VPC to be connected to an initialized TGW. <strong>Transit Gateway Attachment</strong> operates on the scale of Availability Zone (<em>AZ-level</em>). In VPC, when a subnet in an AZ has a <strong>Transit Gateway Attachment</strong> with a TGW, other subnets in the same AZ can connect to that TGW.</p>
 
@@ -528,19 +528,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1652362573"></script>
-    <script src="/js/perfect-scrollbar.min.js?1652362573"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1652362573"></script>
-    <script src="/js/jquery.sticky.js?1652362573"></script>
-    <script src="/js/featherlight.min.js?1652362573"></script>
-    <script src="/js/highlight.pack.js?1652362573"></script>
+    <script src="/js/clipboard.min.js?1652450678"></script>
+    <script src="/js/perfect-scrollbar.min.js?1652450678"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1652450678"></script>
+    <script src="/js/jquery.sticky.js?1652450678"></script>
+    <script src="/js/featherlight.min.js?1652450678"></script>
+    <script src="/js/highlight.pack.js?1652450678"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1652362573"></script>
-    <script src="/js/learn.js?1652362573"></script>
-    <script src="/js/hugo-learn.js?1652362573"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1652450678"></script>
+    <script src="/js/learn.js?1652450678"></script>
+    <script src="/js/hugo-learn.js?1652450678"></script>
 
-    <link href="/mermaid/mermaid.css?1652362573" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1652362573"></script>
+    <link href="/mermaid/mermaid.css?1652450678" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1652450678"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

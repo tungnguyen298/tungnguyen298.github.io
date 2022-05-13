@@ -12,21 +12,21 @@
     <title>Setting up Infrastructure :: AWS System Manager</title>
 
     
-    <link href="/css/nucleus.css?1652362573" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1652362573" rel="stylesheet">
-    <link href="/css/hybrid.css?1652362573" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1652362573" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1652362573" rel="stylesheet">
-    <link href="/css/auto-complete.css?1652362573" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1652362573" rel="stylesheet">
-    <link href="/css/theme.css?1652362573" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1652362573" rel="stylesheet">
+    <link href="/css/nucleus.css?1652450678" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1652450678" rel="stylesheet">
+    <link href="/css/hybrid.css?1652450678" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1652450678" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1652450678" rel="stylesheet">
+    <link href="/css/auto-complete.css?1652450678" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1652450678" rel="stylesheet">
+    <link href="/css/theme.css?1652450678" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1652450678" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1652362573" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1652450678" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1652362573"></script>
+    <script src="/js/jquery-3.3.1.min.js?1652450678"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1652362573"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1652362573"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1652450678"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1652450678"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1652362573"></script>
+<script type="text/javascript" src="/js/search.js?1652450678"></script>
 
     
   </div>
@@ -410,15 +410,15 @@
 
 
 
-	<h4 id="tổng-quan">Tổng quan</h4>
-<p>In this part, you will set up the network infrastructure with CloudFormation Template for the lab with the following architecture:</p>
+	<h4 id="overview">Overview</h4>
+<p>In this section, you will set up the network infrastructure with CloudFormation Template for the lab with the following architecture:</p>
 <p><img src="/images/transitgateway/1_Infra.png?width=40pc" alt="1_Infra">
 Below is resource you need to deploy for your lab:</p>
 <ul>
 <li><strong>First EC2 Host</strong> at VPC1 and <strong>Third EC2 Host</strong> at VPC3 can connect via Internet</li>
 <li><strong>Second EC2 Host</strong> at VPC2 and <strong>Fourth EC2 Host</strong> at VPC 4 cannot connect via Internet</li>
 </ul>
-<h4 id="thiết-lập-hạ-tầng">Thiết lập Hạ tầng</h4>
+<h4 id="setting-up-infrastructure">Setting up Infrastructure</h4>
 <ol>
 <li>Upload template <strong>tgw-lab.yaml</strong> t link <a href="https://github.com/aws-samples/aws-transit-gateway-routing-lab"><strong>this link</strong></a> or download below file:</li>
 </ol>
@@ -455,7 +455,7 @@ Below is resource you need to deploy for your lab:</p>
 </ol>
 <p><img src="/images/transitgateway/Create_CloudFormation.png?width=40pc" alt="1_CloudFormation"></p>
 <ol start="3">
-<li>At left navigation, Choose <strong>Stacks</strong>. then choose <strong>Create Stack</strong> and <strong>With new resources (standard)</strong>.</li>
+<li>At left side bar, Choose <strong>Stacks</strong>. then choose <strong>Create Stack</strong> and <strong>With new resources (standard)</strong>.</li>
 </ol>
 <p><img src="/images/transitgateway/Create_Stack.png?width=90pc" alt="1_CreateStack"></p>
 <ol start="4">
@@ -641,19 +641,19 @@ Below is resource you need to deploy for your lab:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1652362573"></script>
-    <script src="/js/perfect-scrollbar.min.js?1652362573"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1652362573"></script>
-    <script src="/js/jquery.sticky.js?1652362573"></script>
-    <script src="/js/featherlight.min.js?1652362573"></script>
-    <script src="/js/highlight.pack.js?1652362573"></script>
+    <script src="/js/clipboard.min.js?1652450678"></script>
+    <script src="/js/perfect-scrollbar.min.js?1652450678"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1652450678"></script>
+    <script src="/js/jquery.sticky.js?1652450678"></script>
+    <script src="/js/featherlight.min.js?1652450678"></script>
+    <script src="/js/highlight.pack.js?1652450678"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1652362573"></script>
-    <script src="/js/learn.js?1652362573"></script>
-    <script src="/js/hugo-learn.js?1652362573"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1652450678"></script>
+    <script src="/js/learn.js?1652450678"></script>
+    <script src="/js/hugo-learn.js?1652450678"></script>
 
-    <link href="/mermaid/mermaid.css?1652362573" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1652362573"></script>
+    <link href="/mermaid/mermaid.css?1652450678" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1652450678"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
